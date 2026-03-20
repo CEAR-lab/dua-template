@@ -284,7 +284,7 @@ function create_target {
     cp "bin/dua-templates/docker-compose.yaml.template" "docker/container-${TARGET}/.devcontainer/docker-compose.yaml"
   fi
   $SED -i "s/SERVICE/${SERVICE}/g" "docker/container-${TARGET}/.devcontainer/docker-compose.yaml"
-  $SED -i "s/NAME/${NAME}/g" "docker/container-${TARGET}/.devcontainer/docker-compose.yaml"
+  $SED -i "/^[[:space:]]*__GLX_VENDOR_LIBRARY_NAME/!s/NAME/${NAME}/g" "docker/container-${TARGET}/.devcontainer/docker-compose.yaml"
   $SED -i "s/TARGET/${TARGET}/g" "docker/container-${TARGET}/.devcontainer/docker-compose.yaml"
 
   # Add restart policy for SBC targets
