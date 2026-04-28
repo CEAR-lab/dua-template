@@ -25,7 +25,7 @@ services:
       network: host
       dockerfile: ./dua-template/docker/container-x86-cudev/Dockerfile
       args:
-        - USER_UID=1000
+        - USER_UID=${USER_ID}
     image: cearlab_dev_nvidia:x86-cudev
     container_name: cearlab_labadmin_dev_container
     environment:
