@@ -1,0 +1,13 @@
+#!/bin/sh
+# VNC xstartup script for XFCE4 desktop environment
+
+unset SESSION_MANAGER
+unset DBUS_SESSION_BUS_ADDRESS
+
+# Start dbus session
+if [ -x /usr/bin/dbus-launch ]; then
+    eval "$(dbus-launch --sh-syntax --exit-with-session)"
+fi
+
+# Start XFCE4
+exec startxfce4
