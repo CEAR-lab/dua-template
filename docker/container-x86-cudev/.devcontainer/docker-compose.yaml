@@ -18,70 +18,14 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-services:
-  cearlab_dev_nvidia-x86-cudev:
+services:  
+  builder:
     build:
       context: /home/labadmin
       network: host
       dockerfile: ./dua-template/docker/container-x86-cudev/Dockerfile
       args:
-        - USER_UID=${USER_ID}
+        # Standardize this to 1000 for the 'Gold Image'
+        # Distrobox will override this anyway at runtime
+        - USER_UID=1000 
     image: cearlab_dev_nvidia:x86-cudev
-    container_name: cearlab_labadmin_dev_container
-    environment:
-      TERM: xterm-256color
-      DISPLAY:
-      SHELL: /usr/bin/zsh
-      __NV_PRIME_RENDER_OFFLOAD: "1"
-      __GLX_VENDOR_LIBRARY_NAME: "nvidia"
-    user: neo
-    network_mode: "host"
-    privileged: true
-    ipc: host
-    runtime: nvidia
-    init: true
-    stdin_open: false
-    tty: true
-    working_dir: /home/neo/workspace
-    command:
-      [
-        "/bin/bash",
-        "-c",
-        "trap 'exit 0' TERM; sleep infinity & wait"
-      ]
-    # Real-time capabilities for UR robot control
-    cap_add:
-      - SYS_NICE # Allow setting RT scheduling priorities
-      - IPC_LOCK # Allow locking memory
-    ulimits:
-      rtprio: 99 # Real-time priority limit
-      memlock:
-        soft: 8388608 # 8 GB soft limit for locked memory
-        hard: 8388608 # 8 GB hard limit for locked memory
-    volumes:
-      - /home/labadmin:/home/neo/workspace
-      - ../aliases.sh:/home/neo/.aliases.sh:rw
-      - ../bashrc:/home/neo/.bashrc:rw
-      - ../colcon-defaults.yaml:/home/neo/.colcon/defaults.yaml:rw
-      - ../commands.sh:/home/neo/.commands.sh:rw
-      - ../dua_submod.sh:/home/neo/.dua_submod.sh:rw
-      - ../dua_subtree.sh:/home/neo/.dua_subtree.sh:rw
-      - ../p10k.zsh:/home/neo/.p10k.zsh:rw
-      - ../ros2.sh:/home/neo/.ros2.sh:rw
-      - ../zshrc:/home/neo/.zshrc:rw
-      - ../zsh_history:/home/neo/zsh_history
-      - /home/labadmin/.ssh:/home/neo/.ssh
-      - /home/labadmin/.gitconfig:/home/neo/.gitconfig
-      - /home/labadmin/.Xauthority:/home/neo/.Xauthority:rw
-      - /tmp/.X11-unix:/tmp/.X11-unix:rw
-      - /dev:/dev
-      - /sys:/sys
-      - /etc/localtime:/etc/localtime:ro
-      - /etc/timezone:/etc/timezone:ro
-    deploy:
-      resources:
-        reservations:
-          devices:
-            - driver: nvidia
-              count: all
-              capabilities: [ gpu ]

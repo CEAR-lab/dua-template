@@ -28,7 +28,7 @@ ros2init() {
   export ROS_VERSION=2
   export ROS_PYTHON_VERSION=3
   export ROS_DISTRO=jazzy
-  export ROS_LOG_DIR="/home/neo/workspace/logs/ros"
+  export ROS_LOG_DIR="${HOME}/logs/ros"
 
   # Configure RMW environment
   if [[ $# -ne 0 ]]; then
@@ -89,12 +89,7 @@ ros2init() {
   # Source additional DUA stuff
   if [[ -f /opt/ros/dua-utils/install/local_setup.$curr_shell ]]; then
     source /opt/ros/dua-utils/install/local_setup.$curr_shell
-  fi
-
-  # Source workspace if present
-  if [[ -f /home/neo/workspace/install/local_setup.$curr_shell ]]; then
-    source /home/neo/workspace/install/local_setup.$curr_shell
-  fi
+  fi  
 }
 
 # Alias for colcon build command with maximum output
@@ -166,7 +161,7 @@ function ros2bag {
     echo >&2 "                    on the /clock topic."
     echo >&2 "    TOPICS_FILE:    Path to a text file containing full names of the topics to sample,"
     echo >&2 "                    one per line."
-    echo >&2 "    OUTPUT_DIR:     Name of the directory to create in ~/workspace/logs/ to store the"
+    echo >&2 "    OUTPUT_DIR:     Name of the directory to create in ~/logs/ to store the"
     echo >&2 "                    sampled data."
     echo >&2 "    CACHE_SIZE:     Approximately the amount of data in bytes that must be recorded"
     echo >&2 "                    within one second of sampling."
@@ -271,7 +266,7 @@ function ros2bag {
 
     # Start recording
     if ! ros2 bag record \
-      -o "/home/neo/workspace/logs/$output_dir" \
+      -o "${HOME}/logs/$output_dir" \
       --include-unpublished-topics \
       --max-cache-size "$cache_size" \
       $use_sim_time_opt \
