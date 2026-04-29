@@ -28,8 +28,8 @@ alias ll='ls -lah'
 alias valgrind-check='valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes --verbose --log-file=valgrind.out'
 
 # Source DUA commands
-source ~/.dua_submod.sh
-source ~/.dua_subtree.sh
+source "$SB_PATH/dua_submod.sh"
+source "$SB_PATH/dua_subtree.sh"
 
 # Routine to convert an angle in degrees [-180° +180°] to radians [-PI +PI].
 function degrad {

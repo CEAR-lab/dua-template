@@ -68,7 +68,7 @@ RUN wget -qO- https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/ins
     git clone --depth 1 https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH}/custom/plugins/zsh-syntax-highlighting && \
     git clone --depth 1 https://github.com/zsh-users/zsh-autosuggestions ${ZSH}/custom/plugins/zsh-autosuggestions && \
     git clone --depth 1 https://github.com/romkatv/powerlevel10k.git ${ZSH}/custom/themes/powerlevel10k && \
-    chmod -R 777 /opt/oh-my-zsh
+    chmod -R 755 /opt/oh-my-zsh
 
 # Python environment setup
 RUN /opt/dua-venv/bin/pip install --upgrade pip open3d flask_socketio
